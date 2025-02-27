@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        /* ✅ FIX: Ensures the sidebar and main content both take full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            flex: 1; /* Ensures content takes full height */
+        }
+
+        .sidebar {
+            width: 16rem; /* Same width as w-64 */
+            height: 100vh; /* Full viewport height */
+            background-color: white;
+            border-right: 1px solid #e2e8f0; /* Light border */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1.5rem; /* Matches Tailwind p-6 */
+            overflow-y: auto; /* Enables scrolling when needed */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col h-screen">
+            <div class="p-4 border-b border-gray-200">
+                <div class="font-['Pacifico'] text-2xl text-primary">User Panel</div>
+            </div>
+            <nav class="flex-1 overflow-y-auto custom-scrollbar p-4">
+                <button onclick="showSection('dashboard')" class="flex items-center w-full p-2 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg">
+                    <i class="ri-dashboard-line w-5 h-5 mr-3"></i> Dashboard
+                </button>
+                <button id="myDocumentsBtn" onclick="showSection('myDocuments')" class="flex items-center w-full p-2 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg">
+                    <i class="ri-file-list-line w-5 h-5 mr-3"></i> My Documents
+                </button>
+            </nav>
+            <div class="p-4 border-t border-gray-200 flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                        <i class="ri-user-line text-gray-500"></i>
+                    </div>
+                    <div class="ml-3">
+                        <div class="text-sm font-medium text-gray-900"><span id="userName">User</span></div>
+                        <div class="text-xs text-gray-500"><span id="userRole">User</span></div>
+                    </div>
+                </div>
+                <button onclick="logout()" class="px-3 py-1 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600">
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-auto">
+            <!-- Dashboard Section -->
+            <div id="dashboardSection">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                    <h1 class="text-2xl font-semibold text-gray-900">Welcome, <span id="userName">User</span>!</h1>
+                    <p class="text-gray-600">Scan and manage your documents efficiently.</p>
+
+                    <!-- Profile Section -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Your Profile</h2>
+                        <p class="text-sm text-gray-600 mt-2">Overview of your account activity.</p>
+
+                        <div class="grid grid-cols-3 gap-4 mt-4">
+                            <div class="p-4 bg-white shadow rounded-lg border border-gray-200">
+                                <h3 class="text-sm text-gray-500">Available Credits</h3>
+                                <p class="text-2xl font-semibold text-gray-900"><span id="userCredits">--</span></p>
+                            </div>
+                            <div class="p-4 bg-white shadow rounded-lg border border-gray-200">
+                                <h3 class="text-sm text-gray-500">Past Scans</h3>
+                                <p class="text-2xl font-semibold text-gray-900" id="pastScansCount">--</p>
+                            </div>
+                            <div class="p-4 bg-white shadow rounded-lg border border-gray-200">
+                                <h3 class="text-sm text-gray-500">Total Requests</h3>
+                                <p class="text-2xl font-semibold text-gray-900" id="totalRequests">--</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload & Scan Section -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Upload & Scan Document</h2>
+                        <form id="uploadForm" class="mt-4">
+                            <input type="file" id="fileInput" accept=".txt" class="p-2 border border-gray-300 rounded">
+                            <button type="submit" class="ml-3 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                Upload & Scan
+                            </button>
+                        </form>
+                        <div id="results" class="mt-4 text-sm text-gray-700"></div>
+                    </div>
+
+                    <!-- User Credit Request Section -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Request More Credits</h2>
+                        <p class="text-sm text-gray-600 mt-2">If you need more credits, request them from the admin.</p>
+
+                        <input type="number" id="creditRequestAmount" class="p-2 border border-gray-300 rounded w-1/4" min="1" placeholder="Enter credits">
+                        <button onclick="requestCredits()" class="ml-3 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                            Request Credits
+                        </button>
+
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Your Pending Requests</h3>
+                            <p id="pendingRequests" class="text-gray-600">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Documents Section (Initially Hidden) -->
+            <div id="myDocumentsSection" class="hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-800">My Documents</h2>
+                    <div id="pastScans" class="mt-4"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="static/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchUserProfile();
+            fetchUserDocuments();
+        });
+
+        function showSection(section) {
+            document.getElementById("dashboardSection").classList.add("hidden");
+            document.getElementById("myDocumentsSection").classList.add("hidden");
+
+            if (section === "dashboard") {
+                document.getElementById("dashboardSection").classList.remove("hidden");
+            } else if (section === "myDocuments") {
+                document.getElementById("myDocumentsSection").classList.remove("hidden");
+                fetchUserDocuments();
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            alert("You have been logged out.");
+            window.location.href = "index.html";
+        }
+
+        function requestCredits() {
+            let token = localStorage.getItem("token");
+            let requestedCredits = document.getElementById("creditRequestAmount").value.trim();
+
+            if (!requestedCredits || requestedCredits <= 0) {
+                alert("Please enter a valid credit amount.");
+                return;
+            }
+
+            fetch("http://127.0.0.1:5000/user/request_credits", {
+                method: "POST",
+                headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" },
+                body: JSON.stringify({ credits: parseInt(requestedCredits) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || "Request submitted.");
+                fetchUserProfile();
+            })
+            .catch(error => {
+                console.error("Credit Request Error:", error);
+                alert("Error requesting credits.");
+            });
+        }
+    </script>
+</body>
+</html>

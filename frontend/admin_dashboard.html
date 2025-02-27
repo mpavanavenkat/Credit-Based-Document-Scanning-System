@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        /* ✅ FIX: Ensures the sidebar and main content both take full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            flex: 1; /* Ensures content takes full height */
+        }
+
+        .sidebar {
+            width: 16rem; /* Same width as w-64 */
+            height: 100vh; /* Full viewport height */
+            background-color: white;
+            border-right: 1px solid #e2e8f0; /* Light border */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1.5rem; /* Matches Tailwind p-6 */
+            overflow-y: auto; /* Enables scrolling when needed */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col h-screen">
+            <div class="p-4 border-b border-gray-200">
+                <div class="font-['Pacifico'] text-2xl text-primary">Admin Panel</div>
+            </div>
+            <nav class="flex-1 overflow-y-auto custom-scrollbar p-4">
+                <button onclick="showSection('dashboard')" class="flex items-center w-full p-2 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg">
+                    <i class="ri-dashboard-line w-5 h-5 mr-3"></i> Dashboard
+                </button>
+                <button onclick="showSection('analytics')" class="flex items-center w-full p-2 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg">
+                    <i class="ri-bar-chart-line w-5 h-5 mr-3"></i> Analytics
+                </button>
+                <button onclick="showSection('userManagement')" class="flex items-center w-full p-2 text-gray-600 hover:bg-gray-50 hover:text-primary rounded-lg">
+                    <i class="ri-user-settings-line w-5 h-5 mr-3"></i> User Management
+                </button>
+            </nav>
+            <div class="p-4 border-t border-gray-200 flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                    <i class="ri-user-line text-gray-500"></i>
+                </div>
+                <div class="ml-3">
+                    <div class="text-sm font-medium text-gray-900"><span id="userName">Admin</span></div>
+                    <div class="text-xs text-gray-500"><span id="userRole">Administrator</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-auto">
+            <!-- Dashboard Section -->
+            <div id="dashboardSection">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                    <h1 class="text-2xl font-semibold text-gray-900">Welcome, <span id="userName">Admin</span>!</h1>
+                    <p class="text-gray-600">Manage users, track analytics, and oversee the system.</p>
+
+                    <!-- Approve Credit Requests -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Pending Credit Requests</h2>
+                        <div id="creditRequests" class="mt-4">
+                            <p class="text-gray-600">Loading requests...</p>
+                        </div>
+                    </div>
+
+                    <button onclick="logout()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analyticsSection" class="hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                    <h2 class="text-2xl font-semibold text-gray-900">Analytics Overview</h2>
+
+                    <!-- Scans Per User Per Day -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Scans Per User Per Day</h2>
+
+                        <table class="w-full mt-4 border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 px-4 py-2">Username</th>
+                                    <th class="border border-gray-300 px-4 py-2">Scan Date</th>
+                                    <th class="border border-gray-300 px-4 py-2">Scan Count</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scanLogs">
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2" colspan="3">Loading scan data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ✅ Most Common Scanned Document Topics -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Most Common Scanned Document Topics</h2>
+                        <ul id="commonTopics" class="mt-4 list-disc list-inside text-gray-800">
+                            <li>Loading common topics...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management Section -->
+            <div id="userManagementSection" class="hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                    <h2 class="text-2xl font-semibold text-gray-900">User Management</h2>
+
+                    <!-- View Top Users by Scans & Credit Usage -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Top Users by Scans & Credit Usage</h2>
+
+                        <table class="w-full mt-4 border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 px-4 py-2">Username</th>
+                                    <th class="border border-gray-300 px-4 py-2">Total Scans</th>
+                                    <th class="border border-gray-300 px-4 py-2">Credits Remaining</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topUsers">
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2" colspan="3">Loading top users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ✅ Credit Usage Statistics -->
+                    <div class="mt-6 p-4 bg-gray-50 border rounded-lg">
+                        <h2 class="text-lg font-semibold text-gray-800">Credit Usage Statistics</h2>
+
+                        <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                            <div class="p-4 bg-white border rounded-lg shadow-sm">
+                                <h3 class="text-sm text-gray-500">Pending Requests</h3>
+                                <p class="text-xl font-semibold text-yellow-500" id="pendingCredits">Loading...</p>
+                            </div>
+                            <div class="p-4 bg-white border rounded-lg shadow-sm">
+                                <h3 class="text-sm text-gray-500">Approved Credits</h3>
+                                <p class="text-xl font-semibold text-green-500" id="approvedCredits">Loading...</p>
+                            </div>
+                            <div class="p-4 bg-white border rounded-lg shadow-sm">
+                                <h3 class="text-sm text-gray-500">Denied Requests</h3>
+                                <p class="text-xl font-semibold text-red-500" id="deniedCredits">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+    <!-- ✅ Load JavaScript Correctly -->
+    <script src="static/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchUserProfile();
+            fetchCreditRequests();
+            fetchScansPerUser();
+            fetchCommonTopics();
+            fetchTopUsers();
+            fetchCreditUsageStats();
+        });
+
+        function showSection(section) {
+            document.getElementById("dashboardSection").classList.add("hidden");
+            document.getElementById("analyticsSection").classList.add("hidden");
+            document.getElementById("userManagementSection").classList.add("hidden");
+
+
+            if (section === "dashboard") {
+                document.getElementById("dashboardSection").classList.remove("hidden");
+            } else if (section === "analytics") {
+                document.getElementById("analyticsSection").classList.remove("hidden");
+                fetchScansPerUser();
+                fetchCommonTopics();
+            } else if (section === "userManagement") {
+                document.getElementById("userManagementSection").classList.remove("hidden");
+                fetchTopUsers();
+            } else if (section === "userManagement") {
+                document.getElementById("userManagementSection").classList.remove("hidden");
+                fetchCreditUsageStats();
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            alert("You have been logged out.");
+            window.location.href = "index.html";
+        }
+
+        function fetchCreditRequests() {
+            let token = localStorage.getItem("token");
+
+            fetch("http://127.0.0.1:5000/admin/credit_requests", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let requestsDiv = document.getElementById("creditRequests");
+                requestsDiv.innerHTML = "";
+
+                if (!data.requests || data.requests.length === 0) {
+                    requestsDiv.innerHTML = "<p class='text-gray-600'>No pending requests.</p>";
+                    return;
+                }
+
+                data.requests.forEach(request => {
+                    let requestElement = document.createElement("div");
+                    requestElement.className = "p-3 bg-white border rounded-lg shadow-sm mt-2";
+                    requestElement.innerHTML = `
+                        <p><strong>${request.username}</strong> requested <strong>${request.credits}</strong> credits.</p>
+                        <div class="mt-2">
+                            <button onclick="approveCredit(${request.id}, 'approve')" class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Approve</button>
+                            <button onclick="approveCredit(${request.id}, 'deny')" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Deny</button>
+                        </div>
+                    `;
+                    requestsDiv.appendChild(requestElement);
+                });
+            })
+            .catch(error => {
+                console.error("❌ Fetch Credit Requests Error:", error);
+            });
+        }
+
+        function approveCredit(requestId, decision) {
+            let token = localStorage.getItem("token");
+
+            fetch(`http://127.0.0.1:5000/admin/approve_credit/${requestId}`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ decision: decision })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchCreditRequests(); // Refresh the credit request list
+            })
+            .catch(error => {
+                console.error("Approve Credit Error:", error);
+            });
+        }
+
+        
+
+         // ✅ Fetch Most Common Scanned Document Topics
+        function fetchCommonTopics() {
+            let token = localStorage.getItem("token");
+
+            fetch("http://127.0.0.1:5000/admin/common_topics", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let topicsList = document.getElementById("commonTopics");
+                if (!topicsList) return;
+
+                topicsList.innerHTML = "";
+
+                if (!data.topics || data.topics.length === 0) {
+                    topicsList.innerHTML = "<li>No common topics found.</li>";
+                    return;
+                }
+
+                data.topics.forEach(topic => {
+                    let listItem = document.createElement("li");
+                    listItem.textContent = topic;
+                    topicsList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error("❌ Fetch Common Topics Error:", error);
+            });
+        }
+        
+
+        
+        
+
+        
+    </script>
+</body>
+</html>

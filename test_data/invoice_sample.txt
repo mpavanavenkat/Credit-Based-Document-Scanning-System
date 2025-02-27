@@ -1,0 +1,8 @@
+Invoice Number: INV-2025001
+Date: 2025-02-25
+Customer Name: John Doe
+Items:
+- Product A: $50
+- Product B: $30
+Total Amount: $80
+Payment Status: Paid

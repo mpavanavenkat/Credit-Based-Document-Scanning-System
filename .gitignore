@@ -1,0 +1,22 @@
+.gitignore - Ignoring Unnecessary Files
+.gitignore is used to prevent certain files from being tracked in GitHub (e.g., logs, database files, temporary files).
+🔹 How to Create .gitignore
+1️⃣ Create a new file .gitignore in your project root directory.
+2️⃣ Add the following common rules for Python projects:
+
+# Ignore virtual environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore database files
+app.db
+*.sqlite3
+
+# Ignore logs & temp files
+logs/
+*.log
+.DS_Store
+
+venv/

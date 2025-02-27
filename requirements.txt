@@ -1,0 +1,23 @@
+1️⃣ requirements.txt (For Dependencies)
+requirements.txt is used to list all the Python libraries your project needs. This helps others install dependencies easily using:
+pip install -r requirements.txt
+
+🔹 How to Create requirements.txt
+1️⃣ Generate the file automatically (if you installed packages already): Run the following command in your project directory:
+pip freeze > requirements.txt
+This will capture all installed dependencies into requirements.txt.
+
+2️⃣ Manually add dependencies if needed:
+If you already know the libraries you're using, create a new file requirements.txt and manually add:
+from flask import Flask, request, jsonify
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import get_jwt, JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask import Flask, render_template, request, jsonify, send_from_directory
+from datetime import datetime
+from flask_cors import CORS
+import sqlite3
+import os
+import difflib
+from datetime import datetime, date
+import threading
+import time
