@@ -2,9 +2,9 @@ Credit-Based Document Scanning System
 
 📄 Credit-Based Document Scanning System allows users to upload, scan, and compare documents based on a credit system. Administrators can manage users, approve credit requests, and track analytics.
 
-📌 Features\n
-✅ User Authentication: Register/Login securely\n
-✅ Credit System: Users get a limited number of credits to scan documents\n
+📌 Features \n
+✅ User Authentication: Register/Login securely
+✅ Credit System: Users get a limited number of credits to scan documents
 ✅ Document Scanning & Matching: Text similarity comparison using difflib\n
 ✅ Admin Dashboard: Manage users, approve/reject credit requests, view analytics\n
 ✅ Data Storage: SQLite database to store users, scans, and requests\n
