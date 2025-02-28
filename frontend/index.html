@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/style.css">
     <style>
-        /* ✅ Full-Page Background Image */
+        
         body {
             background: url('/static/bg-image.png.webp') no-repeat center center fixed;
             background-size: cover;
@@ -18,7 +18,7 @@
             margin: 0;
         }
 
-        /* ✅ Centered Form Container */
+        
         .container {
             display: flex;
             justify-content: center;
@@ -27,7 +27,7 @@
             height: 100vh;
         }
 
-        /* ✅ Glassy Transparent Effect */
+        
         .form-box {
             width: 100%;
             max-width: 500px;
@@ -41,14 +41,14 @@
             border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
         }
 
-        /* ✅ Title (Now Black) */
+        
         .form-title {
             font-size: 2rem;
             font-weight: bold;
-            color: black; /* ✅ Now title is always black */
+            color: black; 
         }
 
-        /* ✅ Tab Buttons (Now with better visibility) */
+        
         .tab-button {
             width: 50%;
             padding: 1rem;
@@ -67,7 +67,7 @@
             color: white; /* Active tab is now white for better contrast */
         }
 
-        /* ✅ Form Inputs */
+        
         .form-input {
             width: 100%;
             padding: 1rem;
@@ -85,7 +85,7 @@
             border-color: #3b82f6;
         }
 
-        /* ✅ Buttons */
+        
         .form-button {
             width: 100%;
             padding: 1rem;
@@ -111,20 +111,20 @@
         <div class="form-box">
             <h1 class="form-title">Credit-Based Document Scanner</h1>
 
-            <!-- ✅ Tab Buttons -->
+            
             <div class="flex mb-6">
                 <button id="loginTab" class="tab-button active-tab" onclick="showLogin()">Login</button>
                 <button id="registerTab" class="tab-button" onclick="showRegister()">Register</button>
             </div>
 
-            <!-- ✅ Login Form -->
+            
             <div id="loginForm">
                 <input type="text" id="loginUsername" class="form-input" placeholder="Enter username">
                 <input type="password" id="loginPassword" class="form-input" placeholder="Enter password">
                 <button id="loginBtn" class="form-button">Login</button>
             </div>
 
-            <!-- ✅ Register Form (Initially Hidden) -->
+            
             <div id="registerForm" class="hidden">
                 <input type="text" id="registerUsername" class="form-input" placeholder="Enter username">
                 <input type="password" id="registerPassword" class="form-input" placeholder="Enter password">
@@ -135,7 +135,7 @@
 
     <script src="/static/script.js"></script>
     <script>
-        // ✅ Toggle Between Login & Register Forms
+        
         function showLogin() {
             document.getElementById("loginForm").classList.remove("hidden");
             document.getElementById("registerForm").classList.add("hidden");
