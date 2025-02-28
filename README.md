@@ -1,27 +1,20 @@
 Credit-Based Document Scanning System
 
-📄🔍 Credit-Based Document Scanning System that allows users to upload, scan, and compare documents based on a credit system. Administrators can manage users, approve credit requests, and track analytics.
+📄 Credit-Based Document Scanning System allows users to upload, scan, and compare documents based on a credit system. Administrators can manage users, approve credit requests, and track analytics.
 
 📌 Features
-✔️ User Authentication: Register/Login securely
-✔️ Credit System: Users get a limited number of credits to scan documents
-✔️ Document Scanning & Matching: Text similarity comparison using difflib
-✔️ Admin Dashboard: Manage users, approve/reject credit requests, view analytics
-✔️ Data Storage: SQLite database to store users, scans, and requests
-✔️ Fully Responsive UI: Built with TailwindCSS and JavaScript
+✅ User Authentication: Register/Login securely
+✅ Credit System: Users get a limited number of credits to scan documents
+✅ Document Scanning & Matching: Text similarity comparison using difflib
+✅ Admin Dashboard: Manage users, approve/reject credit requests, view analytics
+✅ Data Storage: SQLite database to store users, scans, and requests
+✅ Fully Responsive UI: Built with TailwindCSS and JavaScript
 
 🛠️ Tech Stack
 Frontend: HTML, CSS (TailwindCSS), JavaScript
 Backend: Python (Flask)
 Database: SQLite
-Text Similarity Algorithm: Python's difflib
-Authentication: JWT (JSON Web Tokens)
-
-🛠️ Tech Stack
-Frontend: HTML, CSS (TailwindCSS), JavaScript
-Backend: Python (Flask)
-Database: SQLite
-Text Similarity Algorithm: Python's difflib
+Text Similarity Algorithm: Python’s difflib
 Authentication: JWT (JSON Web Tokens)
 
 🚀 Getting Started
@@ -47,12 +40,13 @@ This will create sample text files in test_data/.
 5️⃣ Run the Backend Server
 Start the Flask API:
 python app.py
-It runs at http://127.0.0.1:5000.
+The backend runs at: http://127.0.0.1:5000
 
 6️⃣ Start the Frontend
-run this command: python -m http.server 8000
-copy and paste this in browser http://127.0.0.1:8000/index.html
-Simply open the index.html file in your browser.
+Run this command to serve the frontend (or directly open index.html):
+cd frontend
+python -m http.server 8000
+Open in browser: http://127.0.0.1:8000/index.html
 
 
 📝 API Endpoints
@@ -66,11 +60,8 @@ POST	/user/request_credits	Request more credits	✅ Yes
 GET	/admin/credit_requests	View pending credit requests	✅ Yes
 
 📸 Screenshots
-Login Page
-Attached in screenshots folder
-
-Admin Dashboard
-Attached in screenshots folder 
+Login Page - Attached in the screenshots folder
+Admin Dashboard - Attached in the screenshots folder
 
 📜 License
 This project is licensed under the MIT License.
