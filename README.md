@@ -26,12 +26,12 @@
 ---
 
 ### Admin Dashboard Details
-username: admin
-password: admin@123
+- **username:** admin
+- **password:** admin@123
 
 ### already created user details(for reference)
-username: venkat
-password: 123
+- **username:** venkat
+- **password:** 123
 
 ## 🚀 Getting Started
 
