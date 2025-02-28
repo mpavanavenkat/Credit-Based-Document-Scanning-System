@@ -30,8 +30,8 @@
 - **password:** admin@123
 
 ### already created user details(for reference)
-- **username:** venkat
-- **password:** 123
+- **username:** venkat18
+- **password:** 12345
 
 ## 🚀 Getting Started
 
