@@ -1,26 +1,38 @@
-Credit-Based Document Scanning System
+# Credit-Based Document Scanning System
 
-📄 Credit-Based Document Scanning System allows users to upload, scan, and compare documents based on a credit system. Administrators can manage users, approve credit requests, and track analytics.
+📄 **Credit-Based Document Scanning System** allows users to upload, scan, and compare documents based on a credit system. Administrators can manage users, approve credit requests, and track analytics.
 
-📌 Features 
-✅ User Authentication: Register/Login securely
-✅ Credit System: Users get a limited number of credits to scan documents
-✅ Document Scanning & Matching: Text similarity comparison using difflib
-✅ Admin Dashboard: Manage users, approve/reject credit requests, view analytics
-✅ Data Storage: SQLite database to store users, scans, and requests
-✅ Fully Responsive UI: Built with TailwindCSS and JavaScript
+---
 
-🛠️ Tech Stack
-Frontend: HTML, CSS (TailwindCSS), JavaScript
-Backend: Python (Flask)
-Database: SQLite
-Text Similarity Algorithm: Python’s difflib
-Authentication: JWT (JSON Web Tokens)
+## 📌 Features
 
-🚀 Getting Started
-1️⃣ Clone the Repository
+✅ User Authentication: Register/Login securely  
+✅ Credit System: Users get a limited number of credits to scan documents  
+✅ Document Scanning & Matching: Text similarity comparison using difflib  
+✅ Admin Dashboard: Manage users, approve/reject credit requests, view analytics  
+✅ Data Storage: SQLite database to store users, scans, and requests  
+✅ Fully Responsive UI: Built with TailwindCSS and JavaScript  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** HTML, CSS (TailwindCSS), JavaScript  
+- **Backend:** Python (Flask)  
+- **Database:** SQLite  
+- **Text Similarity Algorithm:** Python’s difflib  
+- **Authentication:** JWT (JSON Web Tokens)
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/Credit-Based-Document-Scanning-System.git
 cd Credit-Based-Document-Scanning-System
+
 
 2️⃣ Install Dependencies
 Make sure you have Python 3.7+ installed. Then, install the required packages:
