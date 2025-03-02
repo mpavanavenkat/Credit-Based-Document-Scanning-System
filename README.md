@@ -39,7 +39,7 @@
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/Credit-Based-Document-Scanning-System.git
+git clone https://github.com/mpavanavenkat/Credit-Based-Document-Scanning-System
 cd Credit-Based-Document-Scanning-System
 
 
