@@ -28,6 +28,7 @@
 ### Admin Dashboard Details
 - **username:** admin
 - **password:** admin@123
+- To login admin dashboard need to login normally with these details
 
 ### already created user details(for reference)
 - **username:** venkat18
