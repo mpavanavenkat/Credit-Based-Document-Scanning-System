@@ -69,6 +69,10 @@ cd frontend
 python -m http.server 8000
 Open in browser: http://127.0.0.1:8000/index.html
 
+### For your reference project structure need to like this:
+![image](https://github.com/user-attachments/assets/9d5c14e8-57fa-475e-8f69-503b8e890f0f)
+
+
 
 📝 API Endpoints
 Method	Endpoint	Description	Auth Required
